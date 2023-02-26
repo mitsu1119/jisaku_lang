@@ -27,41 +27,35 @@ int main() {
 
 	// interpreter loop
 	while(true) {
-again:
 		printf(">> ");
 
 		// tokens loop
 		while(true) {
-			// space read
-			while(true) {
-				c = getc(stdin);
-				if(isspace(c)) continue;
-				if(c == '\n') {
-					printf("\n");
-					goto again;
-				}
-				ungetc(c, stdin);
+			c = getc(stdin);
+
+			if(isspace(c)) continue;
+			if(c == '\n') {
+				printf("\n");
 				break;
 			}
 
 			// input token loop
 			text_cnt = 0;
-			while(true) {
-				c = getc(stdin);
+			if(isalpha(c)) {
+				do {
+					text[text_cnt++] = c;
+					c = getc(stdin);
+				} while(isalpha(c));
 
-				if(!isalpha(c)) {
-					ungetc(c, stdin);
-					break;
-				}
-
-				text[text_cnt++] = c;
+				text[text_cnt] = 0;
+				ungetc(c, stdin);
+				
+				if(!strcmp(text, "aa")) printf("AA ");
+				else if(!strcmp(text, "bb")) printf("BB ");
+				else error("syntax error\n");
+			} else {
+				error("syntax error\n");
 			}
-
-			text[text_cnt] = 0;
-			
-			if(!strcmp(text, "aa")) printf("AA ");
-			else if(!strcmp(text, "bb")) printf("BB ");
-			else error("syntax error\n");
 		}
 	}
 
