@@ -9,7 +9,7 @@ bool isspace(char c) {
 
 int main() {
 	char c;
-	char text[MAX_TEXT];
+	char text[MAX_TEXT] = {0};
 	int text_cnt;
 
 	while(true) {
@@ -23,6 +23,7 @@ int main() {
 			text[text_cnt++] = c;
 		}
 
+		text[text_cnt] = 0;
 		printf("%s\n", text);
 	}
 
